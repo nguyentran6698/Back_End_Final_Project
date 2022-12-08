@@ -62,7 +62,7 @@ const verifyEmail = async (req, res) => {
   }
 
   if (user.verificationToken !== verificationToken) {
-    throw new CustomError.UnauthenticatedError("Verification Failed");
+    throw new CustomError.UnauthenticatedError("Token Failed");
   }
 
   (user.isVerified = true), (user.verified = Date.now());
