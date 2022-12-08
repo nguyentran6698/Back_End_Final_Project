@@ -32,8 +32,8 @@ const register = async (req, res) => {
     role,
     verificationToken,
   });
-  // const origin = "http://localhost:5000";
-  const newOrigin = "https://main--classy-unicorn-d80a94.netlify.app";
+  const origin = "https://react-node-user-workflow-front-end.netlify.app";
+  //const newOrigin = 'https://react-node-user-workflow-front-end.netlify.app';
 
   // const tempOrigin = req.get('origin');
   // const protocol = req.protocol;
@@ -44,7 +44,7 @@ const register = async (req, res) => {
     name: user.name,
     email: user.email,
     verificationToken: user.verificationToken,
-    newOrigin,
+    origin,
   });
   // send verification token back only while testing in postman!!!
   res.status(StatusCodes.CREATED).json({
