@@ -32,7 +32,7 @@ const register = async (req, res) => {
     role,
     verificationToken,
   });
-  const origin = "https://main--classy-unicorn-d80a94.netlify.app/";
+  const origin = "https://main--classy-unicorn-d80a94.netlify.app";
   //const newOrigin = 'https://react-node-user-workflow-front-end.netlify.app';
 
   // const tempOrigin = req.get('origin');
