@@ -32,20 +32,19 @@ const register = async (req, res) => {
     role,
     verificationToken,
   });
-  const origin = "http://localhost:5000";
-  //const newOrigin = 'https://react-node-user-workflow-front-end.netlify.app';
+  // const origin = "http://localhost:5000";
+  const newOrigin = "https://main--classy-unicorn-d80a94.netlify.app";
 
   // const tempOrigin = req.get('origin');
   // const protocol = req.protocol;
   // const host = req.get('host');
   // const forwardedHost = req.get('x-forwarded-host');
   // const forwardedProtocol = req.get('x-forwarded-proto');
-
   await sendVerificationEmail({
     name: user.name,
     email: user.email,
     verificationToken: user.verificationToken,
-    origin,
+    newOrigin,
   });
   // send verification token back only while testing in postman!!!
   res.status(StatusCodes.CREATED).json({
