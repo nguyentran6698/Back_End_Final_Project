@@ -52,7 +52,7 @@ app.use("/api/v1/groups", groupRouter);
 app.use("/api/v1/cards", cardRouter);
 app.use("/api/v1/auth", authRouter);
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send("Hello world 2");
 });
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
