@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 
 const PostSchema = mongoose.Schema(
   {
-    title: {
+    author: {
       type: String,
-      minlength: 3,
       required: true,
     },
     content: {

@@ -7,14 +7,13 @@ const User = require("../models/User");
 const getAllPosts = async (req, res) => {
   const { userId } = req.user;
   const user = await User.findOne({ _id: userId });
-  console.log(user);
   const posts = await Post.find({ group: { $in: user.groups } });
   res.status(StatusCodes.OK).json({ posts });
 };
 
 const createPost = async (req, res) => {
   const { userId } = req.user;
-  const { group_name, content, title } = req.body;
+  const { group_name, content } = req.body;
   const user = await User.findOne({ _id: userId });
 
   const group = await Group.findOne({ user: userId, name: group_name });
