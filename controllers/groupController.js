@@ -83,15 +83,17 @@ const getMemberInGroup = async (req, res) => {
 const userJoinGroup = async (req, res) => {
   const { userId } = req.user;
   const { code } = req.body;
+  console.log(req.body);
   const group = await Group.findOne({ code });
+  if (!group) {
+    throw new CustomError.NotFoundError(`Can't find the group`);
+  }
   // check if user already in the group or not
   const user = await User.findOne({ _id: userId, groups: { $in: group._id } });
   if (user) {
     throw new CustomError.BadRequestError(`User already in the group`);
   }
-  if (!group) {
-    throw new CustomError.NotFoundError(`Can't find the group`);
-  }
+
   await User.findByIdAndUpdate(
     { _id: userId },
     { $addToSet: { groups: [group._id] }, groupVerification: true }

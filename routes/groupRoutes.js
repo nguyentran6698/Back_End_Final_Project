@@ -17,7 +17,7 @@ router
   .route("/")
   .post(authenticateUser, createGroup)
   .get(authenticateUser, getAllGroups);
-router.get("/joins", authenticateUser, userJoinGroup);
+router.post("/joins", authenticateUser, userJoinGroup);
 router.get(
   "/getUsers/:id",
   authenticateUser,

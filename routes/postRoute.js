@@ -1,7 +1,7 @@
 const {
   getAllPosts,
   createPost,
-  getSinglePost,
+  getPostByName,
   updatePost,
   removePost,
 } = require("../controllers/postController");
@@ -13,10 +13,9 @@ router
   .route("/")
   .post(authenticateUser, createPost)
   .get(authenticateUser, getAllPosts);
-
+router.route("/getPostName").post(authenticateUser, getPostByName);
 router
   .route("/:id")
-  .get(authenticateUser, getSinglePost)
   .patch(authenticateUser, updatePost)
   .delete(authenticateUser, removePost);
 

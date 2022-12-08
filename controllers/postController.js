@@ -13,23 +13,25 @@ const getAllPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
   const { userId } = req.user;
-  const { group_name, content } = req.body;
+  const { group_name, content, author } = req.body;
   const user = await User.findOne({ _id: userId });
 
   const group = await Group.findOne({ user: userId, name: group_name });
   if (!group) {
     throw new CustomError.BadRequestError(`Group does not exist `);
   }
-  const post = await Post.create({ content, title, group: group._id });
+  const post = await Post.create({ content, author, group: group._id });
   res.status(StatusCodes.OK).json(post);
 };
 
-const getSinglePost = async (req, res) => {
-  const { userId } = req.user;
-  const user = await User.findOne({ _id: userId });
-  const { id } = req.params;
-  const post = await Post.findById({ _id: id });
-  res.status(StatusCodes.OK).json(post);
+const getPostByName = async (req, res) => {
+  let { group_name } = req.body;
+  const group = await Group.findOne({ name: group_name });
+  if (!group) {
+    throw new CustomError.BadRequestError(`Group does not exist `);
+  }
+  const posts = await Post.find({ group: group._id });
+  res.status(StatusCodes.OK).json(posts);
 };
 
 const updatePost = async (req, res) => {
@@ -50,7 +52,7 @@ const removePost = async (req, res) => {
 module.exports = {
   getAllPosts,
   createPost,
-  getSinglePost,
+  getPostByName,
   updatePost,
   removePost,
 };
