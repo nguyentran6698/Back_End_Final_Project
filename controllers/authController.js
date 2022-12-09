@@ -145,7 +145,7 @@ const forgotPassword = async (req, res) => {
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString("hex");
     // send email
-    const origin = "http://localhost:3000";
+    const origin = "https://hub-project.onrender.com";
     await sendResetPasswordEmail({
       name: user.name,
       email: user.email,
