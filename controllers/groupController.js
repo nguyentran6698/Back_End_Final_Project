@@ -83,7 +83,6 @@ const getMemberInGroup = async (req, res) => {
 const userJoinGroup = async (req, res) => {
   const { userId } = req.user;
   const { code } = req.body;
-  console.log(req.body);
   const group = await Group.findOne({ code });
   if (!group) {
     throw new CustomError.NotFoundError(`Can't find the group`);
