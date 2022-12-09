@@ -33,13 +33,13 @@ const getAllCards = async (req, res) => {
 };
 
 const createCard = async (req, res) => {
-  const { group_name, title, question, answer } = req.body;
+  const { group_name, question, answer } = req.body;
   const { userId } = req.user;
   const group = await Group.findOne({ user: userId, name: group_name });
   if (!group) {
     throw new CustomError.BadRequestError(`Group does not exist `);
   }
-  const newCard = { title, question, answer, group: group._id };
+  const newCard = { question, answer, group: group._id };
   const card = await Card.create(newCard);
   res.status(StatusCodes.CREATED).json({ card });
 };
