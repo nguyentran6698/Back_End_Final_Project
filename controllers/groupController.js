@@ -58,7 +58,6 @@ const removeGroup = async (req, res) => {
   }
   // Delete the group
   await Group.deleteOne({ _id: id });
-  // Delete any reference in the user array
   await User.updateMany({ $pull: { groups: id } });
   await Card.deleteMany({ group: id });
   res.status(StatusCodes.OK).json({ msg: "Group delete successfully" });
