@@ -5,9 +5,7 @@ require("express-async-errors");
 const express = require("express");
 const app = express();
 // rest of the packages
-const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
-const fileUpload = require("express-fileupload");
+
 const rateLimiter = require("express-rate-limit");
 const helmet = require("helmet");
 const xss = require("xss-clean");
@@ -18,11 +16,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 const connectDB = require("./db/connect");
 
 //  routers
-const userRouter = require("./routes/userRoutes");
-const groupRouter = require("./routes/groupRoutes");
-const postRouter = require("./routes/postRoute");
-const authRouter = require("./routes/authRoutes");
-const cardRouter = require("./routes/cardRoutes");
+const ledgerRouter = require("./routes/ledgerRoutes");
+const transactionRouter = require("./routes/transactionRoutes");
 
 // middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -41,19 +36,9 @@ app.use(xss());
 app.use(mongoSanitize());
 
 app.use(express.json());
-app.use(cookieParser(process.env.JWT_SECRET));
 
-app.use(express.static("./public"));
-app.use(fileUpload());
-
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/posts", postRouter);
-app.use("/api/v1/groups", groupRouter);
-app.use("/api/v1/cards", cardRouter);
-app.use("/api/v1/auth", authRouter);
-app.get("/", (req, res) => {
-  res.send("Hello world 2");
-});
+app.use("/api/v1/ledger", ledgerRouter);
+app.use("/api/v1/transaction", transactionRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
